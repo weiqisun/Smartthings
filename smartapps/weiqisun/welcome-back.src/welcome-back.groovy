@@ -19,9 +19,9 @@ definition(
     author: "Weiqi Sun",
     description: "Turn on lights when door is open with conditions 'status: Away && time: sunset && presence: any authorized person'",
     category: "My Apps",
-    iconUrl: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png",
-    iconX2Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png",
-    iconX3Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png")
+    iconUrl: "https://raw.githubusercontent.com/weiqisun/Smartthings/master/smartapps/weiqisun/welcome-back.src/welcomeback-icon.png",
+    iconX2Url: "https://raw.githubusercontent.com/weiqisun/Smartthings/master/smartapps/weiqisun/welcome-back.src/welcomeback-icon@2x.png",
+    iconX3Url: "https://raw.githubusercontent.com/weiqisun/Smartthings/master/smartapps/weiqisun/welcome-back.src/welcomeback-icon@2x.png")
 
 
 preferences {
