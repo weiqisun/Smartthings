@@ -17,7 +17,7 @@ definition(
     name: "Welcome Back",
     namespace: "weiqisun",
     author: "Weiqi Sun",
-    description: "Turn on lights when door is open with conditions 'status: Away && time: sunset && presence: any authorized person'",
+    description: "Turn on lights when users come back",
     category: "My Apps",
     iconUrl: "https://raw.githubusercontent.com/weiqisun/Smartthings/master/smartapps/weiqisun/welcome-back.src/welcomeback-icon.png",
     iconX2Url: "https://raw.githubusercontent.com/weiqisun/Smartthings/master/smartapps/weiqisun/welcome-back.src/welcomeback-icon@2x.png",
