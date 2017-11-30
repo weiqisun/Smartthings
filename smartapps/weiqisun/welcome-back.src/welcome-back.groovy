@@ -25,83 +25,83 @@ definition(
 
 
 preferences {
-	section("Turn on lights when door is open:") {
-		input "theDoor", "capability.contactSensor", required: true, title: "Which Door?"
-	}
+    section("Turn on lights when door is open:") {
+        input "theDoor", "capability.contactSensor", required: true, title: "Which Door?"
+    }
     
     section("Turn these lights on:") {
-    	input "theLights", "capability.switch", multiple: true, required: true, title: "Which Lights?"
-	}
+        input "theLights", "capability.switch", multiple: true, required: true, title: "Which Lights?"
+    }
     
     section("Authorized people:") {
-    	input "persons", "capability.presenceSensor", multiple:true, required: false, title: "Who?"
+        input "persons", "capability.presenceSensor", multiple:true, required: false, title: "Who?"
     }
     
     section("Send notification to:") {
-    	input "phoneNum", "phone", required: false, title: "Phone Number"
+        input "phoneNum", "phone", required: false, title: "Phone Number"
     }
     
     section("Delay time[s] for lights on:") {
-    	input "waitSec", "number", required: false, title: "Time in Second"
+        input "waitSec", "number", required: false, title: "Time in Second"
     }
 }
 
 def installed() {
-	initialize()
+    initialize()
 }
 
 def updated() {
-	unsubscribe()
-	initialize()
+    unsubscribe()
+    initialize()
 }
 
 def initialize() {
-	subscribe(theDoor, "contact.open", doorOpenHandler)
+    subscribe(theDoor, "contact.open", doorOpenHandler)
 }
 
 def doorOpenHandler(evt) {
-	if (location.currentMode == "Away") {
-    	if (persons && !isAnyoneBack(persons))
-        	sendAlert()
+    if (location.currentMode == "Away") {
+        if (persons && !isAnyoneBack(persons))
+            sendAlert()
         else
-        	activateHome()
+            activateHome()
     }
 }
 
 def isAnyoneBack(persons) {
-	for (person in persons) {
-		if (person.presenceState.value == "present")
-        	return true
-	}
+    for (person in persons) {
+        if (person.presenceState.value == "present")
+            return true
+    }
     return false
 }
 
 def sendAlert() {
-	if (phoneNum) {
-    	def timeNow = new Date()
-    	def message = "The ${theDoor.displayName} is open at time ${timeNow}!"
-    	sendSms(phoneNum, message)
-	}
+    if (phoneNum) {
+        def timeNow = new Date()
+        def message = "The ${theDoor.displayName} is open at time ${timeNow}!"
+        sendSms(phoneNum, message)
+    }
 }
 
 def activateHome() {
-	location.setMode("Home")
+    location.setMode("Home")
     def sun = getSunriseAndSunset(zipCode: location.zipCode)
     def isDayTime = timeOfDayIsBetween(sun.sunrise, sun.sunset, new Date(), location.timeZone)
     if (!isDayTime) 
-    	runIn(waiting(waitSec), turnOn)
+        runIn(waiting(waitSec), turnOn)
 }
 
 def waiting(waitSec) {
-	def maxWaitingTime = 10
-	if (!waitSec || waitSec < 0) 
-    	return 0
+    def maxWaitingTime = 10
+    if (!waitSec || waitSec < 0) 
+        return 0
     else if (waitSec > maxWaitingTime)
-    	return maxWaitingTime
+        return maxWaitingTime
     else
-    	return waitSec
+        return waitSec
 }
 
 def turnOn() {
-	theLights.on()
+    theLights.on()
 }
