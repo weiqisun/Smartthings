@@ -41,18 +41,18 @@ metadata {
         }
 
         standardTile("HDMI1", "device.source1", width: 1, height: 1, canChangeIcon: true) {
-            state("false", label:"HDMI1", action:"source1", icon:"st.Electronics.electronics15", backgroundColor: "#ffffff")
-            state("true", label:"HDMI1", action:"source1", icon:"st.Electronics.electronics15", backgroundColor: "#79b821")
+            state("false", label:"HDMI1", action:"source1", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#ffffff")
+            state("true", label:"HDMI1", action:"source1", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#79b821")
         }
 
         standardTile("HDMI2", "device.source2", width: 1, height: 1, canChangeIcon: true) {
-            state("false", label:"HDMI2", action:"source2", icon:"st.Electronics.electronics15", backgroundColor: "#ffffff")
-            state("true", label:"HDMI2", action:"source2", icon:"st.Electronics.electronics15", backgroundColor: "#79b821")
+            state("false", label:"HDMI2", action:"source2", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#ffffff")
+            state("true", label:"HDMI2", action:"source2", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#79b821")
         }
 
         standardTile("HDMI3", "device.source3", width: 1, height: 1, canChangeIcon: true) {
-            state("false", label:"HDMI3", action:"source3", icon:"st.Electronics.electronics15", backgroundColor: "#ffffff")
-            state("true", label:"HDMI3", action:"source3", icon:"st.Electronics.electronics15", backgroundColor: "#79b821")
+            state("false", label:"HDMI3", action:"source3", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#ffffff")
+            state("true", label:"HDMI3", action:"source3", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#79b821")
         }
         
         controlTile("levelSliderControl", "device.level", "slider", height: 2, width: 1, inactiveLabel: false) {
