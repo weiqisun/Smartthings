@@ -104,18 +104,19 @@ def off() {
 }
 
 def source1() {
-	setLevel(1)
+	setLevel(1.0)
 }
 
 def source2() {
-	setLevel(2)
+	setLevel(2.0)
 }
 
 def source3() {
-	setLevel(3)
+	setLevel(3.0)
 }
 
 def setLevel(value) {
+    value = value.toInteger()
     if (device.currentValue("switch") == "on") {
         message("Changing TV source to: $value")
     
