@@ -20,13 +20,10 @@ metadata {
         capability "Switch Level"
         capability "Switch"
 
-		attribute "source", "number"
-
 		command "source1"
 		command "source2"
 		command "source3"
 	}
-
 
 	simulator {
 		// TODO: define status and reply messages here
@@ -40,24 +37,18 @@ metadata {
                   icon: "st.switches.switch.on", backgroundColor: "#79b821"
         }
 
-        standardTile("HDMI1", "device.source", width: 1, height: 1, canChangeIcon: true) {
-            state("0", label:"HDMI1", action:"none", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#ffffff")
+        standardTile("HDMI1", "device.level", width: 1, height: 1, canChangeIcon: true) {
+            state("default", label:"HDMI1", action:"source1", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#ffffff")
             state("1", label:"HDMI1", action:"source1", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#79b821")
-            state("2", label:"HDMI1", action:"source1", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#ffffff")
-            state("3", label:"HDMI1", action:"source1", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#ffffff")
         }
 
-        standardTile("HDMI2", "device.source", width: 1, height: 1, canChangeIcon: true) {
-            state("0", label:"HDMI2", action:"none", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#ffffff")
-            state("1", label:"HDMI2", action:"source2", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#ffffff")
+        standardTile("HDMI2", "device.level", width: 1, height: 1, canChangeIcon: true) {
+            state("default", label:"HDMI2", action:"source2", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#ffffff")
             state("2", label:"HDMI2", action:"source2", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#79b821")
-            state("3", label:"HDMI2", action:"source2", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#ffffff")
         }
 
-        standardTile("HDMI3", "device.source", width: 1, height: 1, canChangeIcon: true) {
-            state("0", label:"HDMI3", action:"none", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#ffffff")
-            state("1", label:"HDMI3", action:"source3", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#ffffff")
-            state("2", label:"HDMI3", action:"source3", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#ffffff")
+        standardTile("HDMI3", "device.level", width: 1, height: 1, canChangeIcon: true) {
+            state("default", label:"HDMI3", action:"source3", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#ffffff")
             state("3", label:"HDMI3", action:"source3", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/hdmi-cec.src/hdmi.png", backgroundColor: "#79b821")
         }
         
@@ -66,7 +57,7 @@ metadata {
         }
         
         controlTile("levelSliderControl", "device.level", "slider", height: 2, width: 1, inactiveLabel: false) {
-			state "level", action:"setLevel"
+			state("level", action:"setLevel")
 		}
         
         main("switch")
@@ -75,12 +66,12 @@ metadata {
 }
 
 preferences {
-  input("gatewayIP", "text", title: "Gateway IP", required: true, displayDuringSetup: true)
-  input("gatewayPort", "text", title: "Gateway Port", required: true, displayDuringSetup: true)
+    input("gatewayIP", "text", title: "Gateway IP", required: true, displayDuringSetup: true)
+    input("gatewayPort", "text", title: "Gateway Port", required: true, displayDuringSetup: true)
 }
 
 def message(msg){
-  log.debug(msg)
+    log.debug(msg)
 }
 
 // parse events into attributes
@@ -102,40 +93,35 @@ def on() {
     message("Executing 'on'")
     executeCommand("on")
     sendEvent(name: "switch", value: "on", isStateChange: true)
-    sendEvent(name: "source", value: device.currentValue("level"), isStateChange: true)
+    sendEvent(name: "level", value: (device.currentValue("level").toInteger() % 10), isStateChange: true)
 }
 
 def off() {
     message("Executing 'off'")
     executeCommand("off")
     sendEvent(name: "switch", value: "off", isStateChange: true)
-    sendEvent(name: "source", value: 0, isStateChange: true)
+    sendEvent(name: "level", value: (device.currentValue("level").toInteger() % 10 + 10), isStateChange: true)
 }
 
 def source1() {
-	if (device.currentValue("switch") == "on") {
-        setLevel(1)
-    }
-    else {
-        message("Fail changing source to '1', TV is off")
-    }
+	setLevel(1)
 }
 
 def source2() {
-	if (device.currentValue("switch") == "on") {
-        setLevel(2)
-    }
-    else {
-        message("Fail changing source to '2', TV is off")
-    }
+	setLevel(2)
 }
 
 def source3() {
-	if (device.currentValue("switch") == "on") {
-        setLevel(3)
-    }
-    else {
-        message("Fail changing source to '3', TV is off")
+	setLevel(3)
+}
+
+def setLevel(value) {
+    if (device.currentValue("switch") == "on") {
+        message("Changing TV source to: $value")
+    
+        if (value < 1 || value > 3) value = 3
+        executeCommand("$value")
+        sendEvent(name: "level", value: value, isStateChange: true)
     }
 }
 
@@ -147,38 +133,21 @@ def refresh(){
 	executeCommand("status")
 }
 
-def none() { }
-
-def setLevel(value) {
-    message("Changing TV source to: $value")
-
-    if (value < 1 || value > 3) { value = 3 }
-    executeCommand("$value")
-    
-    sendEvent(name: "level", value: value, isStateChange: true)
-    sendEvent(name: "source", value: value, isStateChange: true)
-}
-
 def hubActionResponse(response) {
   	message("Executing 'hubActionResponse': '${device.deviceNetworkId}'")
 
   	def status = response.headers["tv-status"] ?: ""
 	message("switch status: '${status}'")
-	if (status != "") {
-        if (status != device.currentValue("switch")) { calibration(status) }
-		sendEvent(name: "switch", value: status, isStateChange: true)
-	}
+	if (status != "" && status != device.currentValue("switch"))
+        calibration(status)
 }
 
 def calibration(status) {
-    if (status == "on") {
-        sendEvent(name: "switch", value: status, isStateChange: true)
-        sendEvent(name: "source", value: device.currentValue("level"), isStateChange: true)
-    }
-    else {
-        sendEvent(name: "switch", value: status, isStateChange: true)
-        sendEvent(name: "source", value: 0, isStateChange: true)
-    }
+    sendEvent(name: "switch", value: status, isStateChange: true)
+    if (status == "on")
+        sendEvent(name: "level", value: (device.currentValue("level").toInteger() % 10), isStateChange: true)
+    else
+        sendEvent(name: "level", value: (device.currentValue("level").toInteger() % 10 + 10), isStateChange: true)
 }
         
 
