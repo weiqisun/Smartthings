@@ -70,6 +70,7 @@ def RetroOffHandler(evt) {
 }
 
 def PS4OnHandler(evt) {
+	if (theTV.switchState.value == "off") theTV.on()
 	theTV.updateState(2)
 }
 
