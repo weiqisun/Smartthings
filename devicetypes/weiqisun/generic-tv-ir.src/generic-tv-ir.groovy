@@ -53,7 +53,7 @@ metadata {
     tiles {
 
     standardTile("switch", "device.switch", canChangeIcon: true) {
-        state "default", label:'TV', action:"switch.off", icon:"st.Electronics.electronics15", backgroundColor:"#79b821"
+        state "default", label:'TV', action:"switch.off", icon:"st.Electronics.electronics15"
     }
     standardTile("power", "device.switch", decoration: "flat", canChangeIcon: false) {
         state "default", label:'TV', action:"power", icon:"st.samsung.da.RC_ic_power"
@@ -147,6 +147,7 @@ preferences {
     input("gatewayIP", "text", title: "Gateway IP", required: true, displayDuringSetup: true)
     input("gatewayPort", "text", title: "Gateway Port", required: true, displayDuringSetup: true)
     input("remoteName", "text", title: "Remote Name", required: true, displayDuringSetup: true)
+    input("volumeChangeRepeat", "text", title: "Volume Change Repeat", required: true, displayDuringSetup: true)
 }
 
 // parse events into attributes
@@ -165,30 +166,15 @@ def off() {
     executeCommand("POWER")
 }
 
-def setLevel() {
-    log.debug "Executing 'setLevel'"
-    if (val < 0){
-        val = 0
-    }
-
-    if( val > 100){
-        val = 100
-    }
-
-    def prevLevel = device.currentValue("level")
-    log.info "setLevel $val -- prevLevel $prevLevel"
-
-    if ((val > prevLevel) || ((val == prevLevel) && (val != 0))) {
-      volup()
-      volup()
-      sendEvent(name: "switch", value: "on")
+// Alexa send 10 for turning volume low, and 100 for tunning volume up
+def setLevel(val) {
+    log.debug "Executing 'setLevel' to ${val}"
+    def pivot = 50.0 // show be a value between 10 (turn down vol) andd 100 (turn up vol)
+    if (val <= pivot) {
+    	voldown(volumeChangeRepeat.toInteger())
     } else {
-      voldown()
-      voldown()
+    	volup(volumeChangeRepeat.toInteger())
     }
-
-    sendEvent(name:"level",value:val)
-    sendEvent(name:"switch.setLevel",value:val)
 }
 
 def power() {
@@ -251,14 +237,14 @@ def prech() {
     executeCommand("PREVIOUS")
 }
 
-def volup() {
+def volup(repeat = 0) {
     log.debug "executing 'volup'"
-    executeCommand("VOLUMEUP")
+    executeCommand("VOLUMEUP", repeat)
 }
 
-def voldown() {
+def voldown(repeat = 0) {
     log.debug "executing 'voldown'"
-    executeCommand("VOLUMEDOWN")
+    executeCommand("VOLUMEDOWN", repeat)
 }
 
 def enter() {
@@ -331,7 +317,7 @@ def hubActionResponse(response) {
     log.debug("Hub action response: '${response}'")
 }
 
-private executeCommand(command){
+private executeCommand(command, repeat = 0){
     log.debug("Executing command: '${command}'")
     log.debug("Device: ${device.deviceNetworkId}; Remote: ${remoteName}; Gateway: ${gatewayIP}:${gatewayPort}")
 
@@ -339,6 +325,10 @@ private executeCommand(command){
     headers.put("host", "${gatewayIP}:${gatewayPort}")
     headers.put("ir-command", command)
     headers.put("remote-name", remoteName)
+    if (repeat > 1) {
+    	headers.put("repeat", repeat)
+    }
+	log.debug(headers)
 
     try {
       sendHubCommand(new physicalgraph.device.HubAction([
