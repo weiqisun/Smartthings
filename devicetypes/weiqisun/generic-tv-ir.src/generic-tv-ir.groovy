@@ -53,7 +53,7 @@ metadata {
     tiles {
 
     standardTile("switch", "device.switch", canChangeIcon: true) {
-        state "default", label:'TV', action:"switch.off", icon:"st.Electronics.electronics15"
+        state "default", label:'TV', action:"switch.off", icon:"st.Electronics.electronics15", backgroundColor:"#fcba03"
     }
     standardTile("power", "device.switch", decoration: "flat", canChangeIcon: false) {
         state "default", label:'TV', action:"power", icon:"st.samsung.da.RC_ic_power"
