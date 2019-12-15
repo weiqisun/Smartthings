@@ -17,30 +17,33 @@ metadata {
         capability "Switch"
         capability "Switch Level"
 
+		command "power"
         command "mute"
         command "source"
         command "menu"
         command "tools"
-        command "Up"
-        command "Down"
-        command "Left"
-        command "Right"
+        command "up"
+        command "down"
+        command "left"
+        command "right"
         command "chup"
         command "chdown"
         command "prech"
         command "volup"
         command "voldown"
-        command "Enter"
-        command "Return"
-        command "Exit"
-        command "Info"
-        command "Stb"
+        command "enter"
+        command "ret"
+        command "exit"
+        command "info"
+        command "stb"
         command "forward"
         command "backward"
         command "pause"
         command "cc"
         command "play"
         command "stop"
+        command "hub"
+        command "guide"
     }
 
     simulator {
@@ -53,7 +56,7 @@ metadata {
         state "default", label:'TV', action:"switch.off", icon:"st.Electronics.electronics15", backgroundColor:"#79b821"
     }
     standardTile("power", "device.switch", decoration: "flat", canChangeIcon: false) {
-        state "default", label:'TV', action:"switch.off", icon:"st.thermostat.heating-cooling-off"
+        state "default", label:'TV', action:"power", icon:"st.samsung.da.RC_ic_power"
     }
     standardTile("mute", "device.switch", decoration: "flat", canChangeIcon: false) {
         state "default", label:'Mute', action:"mute", icon:"st.custom.sonos.muted"
@@ -62,22 +65,22 @@ metadata {
         state "default", label:'Source', action:"source", icon:"st.Electronics.electronics15"
     }
     standardTile("menu", "device.switch", decoration: "flat", canChangeIcon: false) {
-        state "default", label:'Menu', action:"menu", icon:"st.vents.vent"
+        state "default", label:'Menu', action:"menu", icon:"st.Office.office8"
     }
     standardTile("tools", "device.switch", decoration: "flat", canChangeIcon: false) {
         state "default", label:'Tools', action:"tools", icon:"st.secondary.tools"
     }
-    standardTile("Up", "device.switch", decoration: "flat", canChangeIcon: false) {
-        state "default", label:'Up', action:"Up", icon:"st.thermostat.thermostat-up"
+    standardTile("up", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Up', action:"up", icon:"st.thermostat.thermostat-up"
     }
-    standardTile("Down", "device.switch", decoration: "flat", canChangeIcon: false) {
-        state "default", label:'Down', action:"Down", icon:"st.thermostat.thermostat-down"
+    standardTile("down", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Down', action:"down", icon:"st.thermostat.thermostat-down"
     }
-    standardTile("Left", "device.switch", decoration: "flat", canChangeIcon: false) {
-        state "default", label:'Left', action:"Left", icon:"st.thermostat.thermostat-left"
+    standardTile("left", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Left', action:"left", icon:"st.thermostat.thermostat-left"
     }
-    standardTile("Right", "device.switch", decoration: "flat", canChangeIcon: false) {
-        state "default", label:'Right', action:"Right", icon:"st.thermostat.thermostat-right"
+    standardTile("right", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Right', action:"right", icon:"st.thermostat.thermostat-right"
     }
     standardTile("chup", "device.switch", decoration: "flat", canChangeIcon: false) {
         state "default", label:'CH Up', action:"chup", icon:"st.thermostat.thermostat-up"
@@ -94,48 +97,48 @@ metadata {
     standardTile("voldown", "device.switch", decoration: "flat", canChangeIcon: false) {
         state "default", label:'Vol Down', action:"voldown", icon:"st.thermostat.thermostat-down"
     }
-    standardTile("Enter", "device.switch", decoration: "flat", canChangeIcon: false) {
-        state "default", label:'Enter', action:"Enter", icon:"st.illuminance.illuminance.dark"
+    standardTile("enter", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Enter', action:"enter", icon:"st.illuminance.illuminance.dark"
     }
-    standardTile("Return", "device.switch", decoration: "flat", canChangeIcon: false) {
-        state "default", label:'Return', action:"Return", icon:"st.secondary.refresh-icon"
+    standardTile("return", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Return', action:"ret", icon:"st.secondary.refresh-icon"
     }
-    standardTile("Exit", "device.switch", decoration: "flat", canChangeIcon: false) {
-        state "default", label:'Exit', action:"Exit", icon:"st.locks.lock.unlocked"
+    standardTile("exit", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Exit', action:"exit", icon:"st.locks.lock.unlocked"
     }
-    standardTile("Info", "device.switch", decoration: "flat", canChangeIcon: false) {
-        state "default", label:'Info', action:"Info", icon:"st.motion.acceleration.active"
+    standardTile("info", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Info', action:"info", icon:"st.switches.light.on"
     }
-    standardTile("Stb", "device.switch", decoration: "flat", canChangeIcon: false) {
+    standardTile("stb", "device.switch", decoration: "flat", canChangeIcon: false) {
         state "default", label:'STB', action:"stb", icon:"st.samsung.da.RAC_ic_aircon"
     }
     standardTile("hub", "device.switch", decoration: "flat", canChangeIcon: false) {
-        state "default", label:'SMART HUB', action:"hub", icon:"st.samsung.da.RAC_ic_aircon"
+        state "default", label:'SMART HUB', action:"hub", icon:"st.Entertainment.entertainment9"
     }
     standardTile("guide", "device.switch", decoration: "flat", canChangeIcon: false) {
-        state "default", label:'Guide', action:"guide", icon:"st.samsung.da.RAC_ic_aircon"
+        state "default", label:'Guide', action:"guide", icon:"st.motion.acceleration.active"
     }
     standardTile("forward", "device.switch", decoration: "flat", canChangeIcon: false) {
-        state "default", label:'Forward', action:"forward", icon:"st.samsung.da.RAC_ic_aircon"
+        state "default", label:'Forward', action:"forward", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/generic-tv-ir.src/icons/next-btn@2x.png"
     }
     standardTile("backward", "device.switch", decoration: "flat", canChangeIcon: false) {
-        state "default", label:'Backward', action:"backward", icon:"st.samsung.da.RAC_ic_aircon"
+        state "default", label:'Backward', action:"backward", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/generic-tv-ir.src/icons/previous-btn%402x.png"
     }
     standardTile("pause", "device.switch", decoration: "flat", canChangeIcon: false) {
-        state "default", label:'Pause', action:"pause", icon:"st.samsung.da.RAC_ic_aircon"
+        state "default", label:'Pause', action:"pause", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/generic-tv-ir.src/icons/pause-icon%402x.png"
     }
     standardTile("cc", "device.switch", decoration: "flat", canChangeIcon: false) {
-        state "default", label:'CC', action:"cc", icon:"st.samsung.da.RAC_ic_aircon"
+        state "default", label:'CC', action:"cc", icon:"st.Entertainment.entertainment8"
     }
     standardTile("play", "device.switch", decoration: "flat", canChangeIcon: false) {
-        state "default", label:'Play', action:"play", icon:"st.samsung.da.RAC_ic_aircon"
+        state "default", label:'Play', action:"play", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/generic-tv-ir.src/icons/play-icon%402x.png"
     }
     standardTile("stop", "device.switch", decoration: "flat", canChangeIcon: false) {
-        state "default", label:'Stop', action:"stop", icon:"st.samsung.da.RAC_ic_aircon"
+        state "default", label:'Stop', action:"stop", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/generic-tv-ir.src/icons/stop-btn%402x.png"
     }
 
     main "switch"
-    details (["power","source", "Stb", "chup","prech","volup","chdown","mute","voldown", "menu", "tools", "Up", "Info", "Left", "Enter", "Right", "Return", "Down", "Exit", "backward", "pause", "forward", "cc", "play", "stop"])
+    details (["power","source","stb","volup","prech","chup","voldown","mute","chdown","menu", "hub", "guide", "tools","up","info","left","enter","right","return","down","exit","backward","pause","forward","cc","play","stop"])
 
     }
 }
@@ -143,33 +146,23 @@ metadata {
 preferences {
     input("gatewayIP", "text", title: "Gateway IP", required: true, displayDuringSetup: true)
     input("gatewayPort", "text", title: "Gateway Port", required: true, displayDuringSetup: true)
+    input("remoteName", "text", title: "Remote Name", required: true, displayDuringSetup: true)
 }
 
 // parse events into attributes
 def parse(String description) {
     log.debug "Parsing '${description}'"
-    def msg = parseLanMessage(description)
-
-    def headersAsString = msg.header // => headers as a string
-    def headerMap = msg.headers      // => headers as a Map
-    def body = msg.body              // => request body as a string
-    def status = msg.status          // => http status code of the response
-    def json = msg.json              // => any JSON included in response body, as a data structure of lists and maps
-    def xml = msg.xml                // => any XML included in response body, as a document tree structure
-    def data = msg.data              // => either JSON or XML in response body (whichever is specified by content-type header in response)
 }
 
 // handle commands
 def on() {
     log.debug "Executing 'on'"
-    String command = "POWER"
-    executeCommand(command)
+    executeCommand("POWER")
 }
 
 def off() {
     log.debug "Executing 'off'"
-    String command = "POWER"
-    executeCommand(command)
+    executeCommand("POWER")
 }
 
 def setLevel() {
@@ -201,52 +194,154 @@ def setLevel() {
     sendEvent(name:"switch.setLevel",value:val)
 }
 
+def power() {
+    log.debug "Executing 'power'"
+    executeCommand("POWER")
+}
+
 def mute() {
     log.debug "executing 'mute'"
-    executecommand("MUTE")
+    executeCommand("MUTE")
 }
 
 def source() {
     log.debug "executing 'source'"
-    executecommand("SOURCE")
+    executeCommand("SOURCE")
 }
 
 def menu() {
     log.debug "executing 'menu'"
-    executecommand("MENU")
+    executeCommand("MENU")
+}
+
+def tools() {
+    log.debug "executing 'tools'"
+    executeCommand("TOOLS")
+}
+
+def up() {
+    log.debug "executing 'up'"
+    executeCommand("UP")
+}
+
+def down() {
+    log.debug "executing 'down'"
+    executeCommand("DOWN")
+}
+
+def left() {
+    log.debug "executing 'left'"
+    executeCommand("LEFT")
+}
+
+def right() {
+    log.debug "executing 'right'"
+    executeCommand("RIGHT")
+}
+
+def chup() {
+    log.debug "executing 'chup'"
+    executeCommand("CHANNELUP")
+}
+
+def chdown() {
+    log.debug "executing 'chdown'"
+    executeCommand("CHANNELDOWN")
+}
+
+def prech() {
+    log.debug "executing 'prech'"
+    executeCommand("PREVIOUS")
+}
+
+def volup() {
+    log.debug "executing 'volup'"
+    executeCommand("VOLUMEUP")
+}
+
+def voldown() {
+    log.debug "executing 'voldown'"
+    executeCommand("VOLUMEDOWN")
+}
+
+def enter() {
+    log.debug "executing 'enter'"
+    executeCommand("ENTER")
+}
+
+def ret() {
+    log.debug "executing 'return'"
+    executeCommand("RETURN")
+}
+
+def exit() {
+    log.debug "executing 'exit'"
+    executeCommand("EXIT")
+}
+
+def info() {
+    log.debug "executing 'info'"
+    executeCommand("INFO")
+}
+
+def stb() {
+    log.debug "executing 'stb'"
+    executeCommand("POWER_STB")
+}
+
+def forward() {
+    log.debug "executing 'forward'"
+    executeCommand("FASTFORWARD")
+}
+
+def backward() {
+    log.debug "executing 'backward'"
+    executeCommand("FASTREVERSE")
+}
+
+def pause() {
+    log.debug "executing 'pause'"
+    executeCommand("PAUSE")
+}
+
+def cc() {
+    log.debug "executing 'cc'"
+    executeCommand("CC")
+}
+
+def play() {
+    log.debug "executing 'play'"
+    executeCommand("PLAY")
+}
+
+def stop() {
+    log.debug "executing 'stop'"
+    executeCommand("STOP")
+}
+
+def hub() {
+    log.debug "executing 'hub'"
+    executeCommand("SMART_HUB")
+}
+
+def guide() {
+    log.debug "executing 'guide'"
+    executeCommand("GUIDE")
 }
 
 def hubActionResponse(response) {
     log.debug("Executing 'hubActionResponse': '${device.deviceNetworkId}'")
-
     log.debug("Hub action response: '${response}'")
-
-    /*
-    def status = response.headers["tv-status"] ?: ""
-    log.debug("switch status: '${status}'")
-    if (status != "")
-        calibration(status)
-    */
-}
-
-def calibration(status) {
-    sendEvent(name: "switch", value: status, isStateChange: true)
-    if (status == "on")
-        sendEvent(name: "level", value: (device.currentValue("level").toInteger() % 10), isStateChange: true)
-    else
-        sendEvent(name: "level", value: (device.currentValue("level").toInteger() % 10 + 90), isStateChange: true)
 }
 
 private executeCommand(command){
-
-    def gatewayIPHex = convertIPtoHex(gatewayIP)
-    def gatewayPortHex = convertPortToHex(gatewayPort)
-    message (device.deviceNetworkId)
-    message ("gateway port: $gatewayIP:$gatewayPort")
+	log.debug("Executing command: '${command}'")
+    log.debug("Device: ${device.deviceNetworkId}; Remote: ${remoteName}; Gateway: ${gatewayIP}:${gatewayPort}")
 
     def headers = [:]
-    headers.put("HOST", "$gatewayIP:$gatewayPort")
+    headers.put("host", "${gatewayIP}:${gatewayPort}")
     headers.put("ir-command", command)
+    headers.put("remote-name", remoteName)
 
     try {
       sendHubCommand(new physicalgraph.device.HubAction([
@@ -259,14 +354,6 @@ private executeCommand(command){
     } catch (e) {
       log.debug(e.message)
     }
-}
-
-private String convertIPtoHex(ipAddress) {
-    String hex = ipAddress.tokenize( '.' ).collect {  String.format( '%02x', it.toInteger() ) }.join()
-    return hex
-}
-
-private String convertPortToHex(port) {
-    String hexport = port.toString().format( '%04x', port.toInteger() )
-    return hexport
+    
+    log.debug("Done executing command: '${command}'")
 }
