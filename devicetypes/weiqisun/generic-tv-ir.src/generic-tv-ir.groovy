@@ -171,9 +171,9 @@ def setLevel(val) {
     log.debug "Executing 'setLevel' to ${val}"
     def pivot = 50.0 // show be a value between 10 (turn down vol) andd 100 (turn up vol)
     if (val <= pivot) {
-    	voldown(volumeChangeRepeat.toInteger())
+        voldown(volumeChangeRepeat.toInteger())
     } else {
-    	volup(volumeChangeRepeat.toInteger())
+        volup(volumeChangeRepeat.toInteger())
     }
 }
 
@@ -326,9 +326,9 @@ private executeCommand(command, repeat = 0){
     headers.put("ir-command", command)
     headers.put("remote-name", remoteName)
     if (repeat > 1) {
-    	headers.put("repeat", repeat)
+        headers.put("repeat", repeat)
     }
-	log.debug(headers)
+    log.debug(headers)
 
     try {
       sendHubCommand(new physicalgraph.device.HubAction([
