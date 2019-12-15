@@ -17,7 +17,7 @@ metadata {
         capability "Switch"
         capability "Switch Level"
 
-		command "power"
+        command "power"
         command "mute"
         command "source"
         command "menu"
@@ -187,9 +187,6 @@ def setLevel() {
       voldown()
     }
 
-
-    // make sure we don't drive switches past allowed values (command will hang device waiting for it to
-    // execute. Never commes back)
     sendEvent(name:"level",value:val)
     sendEvent(name:"switch.setLevel",value:val)
 }
@@ -335,7 +332,7 @@ def hubActionResponse(response) {
 }
 
 private executeCommand(command){
-	log.debug("Executing command: '${command}'")
+    log.debug("Executing command: '${command}'")
     log.debug("Device: ${device.deviceNetworkId}; Remote: ${remoteName}; Gateway: ${gatewayIP}:${gatewayPort}")
 
     def headers = [:]
