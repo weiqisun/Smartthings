@@ -147,6 +147,7 @@ preferences {
     input("gatewayIP", "text", title: "Gateway IP", required: true, displayDuringSetup: true)
     input("gatewayPort", "text", title: "Gateway Port", required: true, displayDuringSetup: true)
     input("remoteName", "text", title: "Remote Name", required: true, displayDuringSetup: true)
+    input("irCommandPrefix", "text", title: "Prefix of IR Command", required: true, displayDuringSetup: true)
     input("volumeChangeRepeat", "text", title: "Volume Change Repeat", required: true, displayDuringSetup: true)
 }
 
@@ -318,12 +319,13 @@ def hubActionResponse(response) {
 }
 
 private executeCommand(command, repeat = 0){
-    log.debug("Executing command: '${command}'")
+    def irCommand = irCommandPrefix + command
+    log.debug("Executing command: '${irCommand}'")
     log.debug("Device: ${device.deviceNetworkId}; Remote: ${remoteName}; Gateway: ${gatewayIP}:${gatewayPort}")
 
     def headers = [:]
     headers.put("host", "${gatewayIP}:${gatewayPort}")
-    headers.put("ir-command", command)
+    headers.put("ir-command", irCommand)
     headers.put("remote-name", remoteName)
     if (repeat > 1) {
         headers.put("repeat", repeat)
@@ -342,5 +344,5 @@ private executeCommand(command, repeat = 0){
       log.debug(e.message)
     }
     
-    log.debug("Done executing command: '${command}'")
+    log.debug("Done executing command: '${irCommand}'")
 }
