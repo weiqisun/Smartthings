@@ -56,9 +56,9 @@ metadata {
 
     standardTile("switch", "device.switch", canChangeIcon: true) {
         state "off", label: 'Off', action: "switch.on",
-               icon: "st.switches.switch.off", backgroundColor: "#ffffff"
+               icon: "st.Electronics.electronics15", backgroundColor: "#ffffff"
         state "on", label: 'On', action: "switch.off",
-               icon: "st.switches.switch.on", backgroundColor: "#79b821"
+               icon: "st.Electronics.electronics15", backgroundColor: "#79b821"
     }
     standardTile("power", "device.switch", decoration: "flat", canChangeIcon: false) {
         state "default", label:'TV', action:"power", icon:"st.samsung.da.RC_ic_power"
