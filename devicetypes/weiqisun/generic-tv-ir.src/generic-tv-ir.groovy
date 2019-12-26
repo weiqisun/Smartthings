@@ -142,7 +142,7 @@ metadata {
         state "default", label:'Stop', action:"stop", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/generic-tv-ir.src/icons/stop-btn%402x.png"
     }
     standardTile("refresh", "capability.refresh", decoration: "flat") {
-        state("default", label:"refresh", action:"refresh", icon:"st.secondary.refresh")
+        state("default", label:"refresh", action:"refresh", icon:"st.secondary.refresh-icon")
     }
 
     main "switch"
@@ -199,7 +199,11 @@ def setLevel(val) {
 def power() {
     log.debug "Executing 'power'"
     executeCommand("POWER")
-    refresh()
+    if (device.currentValue("switch") == "on") {
+        sendEvent(name: "switch", value: "off", isStateChange: true)
+    } else {
+        sendEvent(name: "switch", value: "on", isStateChange: true)
+    }
 }
 
 def mute() {
