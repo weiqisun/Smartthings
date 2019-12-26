@@ -14,6 +14,8 @@
  */
 metadata {
     definition (name: "Generic TV IR", namespace: "weiqisun", author: "Weiqi Sun", cstHandler: true) {
+        capability "Polling"
+        capability "Refresh"
         capability "Switch"
         capability "Switch Level"
 
@@ -53,7 +55,10 @@ metadata {
     tiles {
 
     standardTile("switch", "device.switch", canChangeIcon: true) {
-        state "default", label:'TV', action:"switch.off", icon:"st.Electronics.electronics15", backgroundColor:"#fcba03"
+        state "off", label: 'Off', action: "switch.on",
+               icon: "st.switches.switch.off", backgroundColor: "#ffffff"
+        state "on", label: 'On', action: "switch.off",
+               icon: "st.switches.switch.on", backgroundColor: "#79b821"
     }
     standardTile("power", "device.switch", decoration: "flat", canChangeIcon: false) {
         state "default", label:'TV', action:"power", icon:"st.samsung.da.RC_ic_power"
@@ -136,9 +141,12 @@ metadata {
     standardTile("stop", "device.switch", decoration: "flat", canChangeIcon: false) {
         state "default", label:'Stop', action:"stop", icon:"https://raw.githubusercontent.com/weiqisun/Smartthings/master/devicetypes/weiqisun/generic-tv-ir.src/icons/stop-btn%402x.png"
     }
+    standardTile("refresh", "capability.refresh", decoration: "flat") {
+        state("default", label:"refresh", action:"refresh", icon:"st.secondary.refresh")
+    }
 
     main "switch"
-    details (["power","source","stb","volup","prech","chup","voldown","mute","chdown","menu", "hub", "guide", "tools","up","info","left","enter","right","return","down","exit","backward","pause","forward","cc","play","stop"])
+    details (["power","refresh","stb","volup","prech","chup","voldown","mute","chdown","menu", "hub", "guide", "tools","up","source","left","enter","right","return","down","exit","backward","pause","forward","cc","play","stop"])
 
     }
 }
@@ -159,12 +167,22 @@ def parse(String description) {
 // handle commands
 def on() {
     log.debug "Executing 'on'"
-    executeCommand("POWER")
+    executeCommand("on")
+    sendEvent(name: "switch", value: "on", isStateChange: true)
 }
 
 def off() {
     log.debug "Executing 'off'"
-    executeCommand("POWER")
+    executeCommand("off")
+    sendEvent(name: "switch", value: "off", isStateChange: true)
+}
+
+def poll(){
+    executeCommand("status")
+}
+
+def refresh(){
+    executeCommand("status")
 }
 
 // Alexa send 10 for turning volume low, and 100 for tunning volume up
@@ -181,6 +199,7 @@ def setLevel(val) {
 def power() {
     log.debug "Executing 'power'"
     executeCommand("POWER")
+    refresh()
 }
 
 def mute() {
@@ -316,10 +335,20 @@ def guide() {
 def hubActionResponse(response) {
     log.debug("Executing 'hubActionResponse': '${device.deviceNetworkId}'")
     log.debug("Hub action response: '${response}'")
+
+    def status = response.headers["power-status"] ?: ""
+    if (status != "") {
+        message("switch status: '${status}'")
+        sendEvent(name: "switch", value: status, isStateChange: true)
+    }
 }
 
 private executeCommand(command, repeat = 0){
     def irCommand = irCommandPrefix + command
+    if (command == "on" || command == "off" || command == "status") {
+        irCommand = command
+    }
+
     log.debug("Executing command: '${irCommand}'")
     log.debug("Device: ${device.deviceNetworkId}; Remote: ${remoteName}; Gateway: ${gatewayIP}:${gatewayPort}")
 
