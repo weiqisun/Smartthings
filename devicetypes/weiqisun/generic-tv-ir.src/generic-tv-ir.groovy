@@ -94,7 +94,7 @@ metadata {
         state "default", label:'CH Down', action:"chdown", icon:"st.thermostat.thermostat-down"
     }
     standardTile("prech", "device.switch", decoration: "flat", canChangeIcon: false) {
-        state "default", label:'Pre CH', action:"prech", icon:"st.secondary.refresh-icon"
+        state "default", label:'Pre CH', action:"prech", icon:"st.motion.motion.active"
     }
     standardTile("volup", "device.switch", decoration: "flat", canChangeIcon: false) {
         state "default", label:'Vol Up', action:"volup", icon:"st.thermostat.thermostat-up"
