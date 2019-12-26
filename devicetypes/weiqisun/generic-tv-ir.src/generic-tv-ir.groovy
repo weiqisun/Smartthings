@@ -338,7 +338,7 @@ def hubActionResponse(response) {
 
     def status = response.headers["power-status"] ?: ""
     if (status != "") {
-        message("switch status: '${status}'")
+        log.debug("switch status: '${status}'")
         sendEvent(name: "switch", value: status, isStateChange: true)
     }
 }
