@@ -37,6 +37,11 @@ mappings {
             GET: "pollDevice"
         ]
     }
+    path("/update/:command") {
+        action: [
+            GET: "updateDevice"
+        ]
+    }
 }
 
 def pollDevice() {
@@ -45,6 +50,22 @@ def pollDevice() {
     return [name: devices.displayName, value: devices.currentValue("switch")]
 }
 
+def updateDevice() {
+    log.debug "Updating device: ${devices.displayName}"
+    def command = params.command
+    log.debug "request command: ${command}"
+    switch(command) {
+        case "on":
+            devices.seton()
+            break
+        case "off":
+            devices.setoff()
+            break
+        default:
+            httpError(400, "${command} is not a valid command for ${devices.displayName}")
+    }
+    return [name: devices.displayName, value: devices.currentValue("switch")]
+}
 def installed() {
 	log.debug "Installed with settings: ${settings}"
 
