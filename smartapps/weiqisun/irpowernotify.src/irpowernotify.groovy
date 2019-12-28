@@ -26,7 +26,7 @@ definition(
 
 
 preferences {
-	section("Allow IR power signal to poll these device...") {
+	section("Allow IR power signal to poll this device...") {
         input "devices", "capability.polling", multiple: false, required: true
 	}
 }
@@ -40,14 +40,9 @@ mappings {
 }
 
 def pollDevice() {
-	log.debug "In pollDevice()"
-    log.debug "polling device: ${devices.displayName}"
-    def resp = []
-    log.debug "Status before polling: ${devices.currentValue("switch")}"
+    log.debug "Polling device: ${devices.displayName}"
     devices.poll()
-    log.debug "Status after polling: ${devices.currentValue("switch")}"
-    resp << [name: devices.displayName, value: devices.currentValue("switch")]
-    return resp
+    return [name: devices.displayName, value: devices.currentValue("switch")]
 }
 
 def installed() {
@@ -64,7 +59,5 @@ def updated() {
 }
 
 def initialize() {
-	// TODO: subscribe to attributes, devices, locations, etc.
+    log.debug "Initializing IrPowerNotify"
 }
-
-// TODO: implement event handlers
