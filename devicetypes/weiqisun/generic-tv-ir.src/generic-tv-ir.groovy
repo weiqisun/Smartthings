@@ -46,6 +46,8 @@ metadata {
         command "stop"
         command "hub"
         command "guide"
+        command "seton"
+        command "setoff"
     }
 
     simulator {
@@ -174,6 +176,16 @@ def on() {
 def off() {
     log.debug "Executing 'off'"
     executeCommand("off")
+    sendEvent(name: "switch", value: "off", isStateChange: true)
+}
+
+def seton() {
+    log.debug "Executing 'seton'"
+    sendEvent(name: "switch", value: "on", isStateChange: true)
+}
+
+def setoff() {
+    log.debug "Executing 'setoff'"
     sendEvent(name: "switch", value: "off", isStateChange: true)
 }
 
