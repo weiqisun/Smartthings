@@ -63,7 +63,8 @@ metadata {
                icon: "st.Electronics.electronics15", backgroundColor: "#79b821"
     }
     standardTile("power", "device.switch", decoration: "flat", canChangeIcon: false) {
-        state "default", label:'TV', action:"power", icon:"st.samsung.da.RC_ic_power"
+        state "off", label:'TV', action:"power", icon:"st.samsung.da.RC_ic_power", backgroundColor: "#ffffff"
+        state "on" , label:'TV', action:"power", icon:"st.samsung.da.RC_ic_power", backgroundColor: "#79b821"
     }
     standardTile("mute", "device.switch", decoration: "flat", canChangeIcon: false) {
         state "default", label:'Mute', action:"mute", icon:"st.custom.sonos.muted"
@@ -148,7 +149,7 @@ metadata {
     }
 
     main "switch"
-    details (["power","refresh","stb","volup","prech","chup","voldown","mute","chdown","menu", "hub", "guide", "tools","up","source","left","enter","right","return","down","exit","backward","pause","forward","cc","play","stop"])
+    details (["power","refresh","info","volup","prech","chup","voldown","mute","chdown","menu", "hub", "guide", "tools","up","source","left","enter","right","return","down","exit","backward","pause","forward","cc","play","stop"])
 
     }
 }
